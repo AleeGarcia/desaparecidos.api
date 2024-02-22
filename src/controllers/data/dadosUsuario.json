@@ -1,0 +1,17 @@
+[
+    {
+      "id": 1,
+      "nome": "João",
+      "endereco": "Rua ABC, 123",
+      "email": "joao@gmail.com",
+      "telefone": "(00) 1234-5678"
+    },
+    {
+      "id": 2,
+      "nome": "Maria",
+      "endereco": "Avenida DEF, 456",
+      "email": "maria@gmail.com",
+      "telefone": "(00) 9876-5432"
+    }
+  ]
+  

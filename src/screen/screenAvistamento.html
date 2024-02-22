@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Avistamento</title>
+    <style>
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>Formulário de Avistamento</h2>
+    <form id="formAdicionarAvistamento">
+        <label for="sexoAvistamento">Sexo:</label>
+        <select id="sexoAvistamento" name="sexoAvistamento">
+            <option value="Masculino">Masculino</option>
+            <option value="Feminino">Feminino</option>
+            <option value="Indefinido">Indefinido</option>
+        </select>
+
+        <label for="localizacaoAvistamento">Localização:</label>
+        <input type="text" id="localizacaoAvistamento" name="localizacaoAvistamento" placeholder="Digite a localização do avistamento">
+
+        <label for="dataAvistamento">Data:</label>
+        <input type="date" id="dataAvistamento" name="dataAvistamento">
+
+        <input type="submit" value="Registrar Avistamento">
+    </form>
+
+    <div id="listaAvistamentos">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            document.getElementById('formAdicionarAvistamento').addEventListener('submit', function (event) {
+                event.preventDefault();
+                adicionarAvistamento();
+            });
+        });
+
+        function adicionarAvistamento() {
+            const sexo = document.getElementById('sexoAvistamento').value;
+            const localizacao = document.getElementById('localizacaoAvistamento').value;
+            const data = document.getElementById('dataAvistamento').value;
+
+            const dadosAvistamento = {
+                sexo: sexo,
+                localizacao: localizacao,
+                data: data
+            };
+
+            fetch('http://localhost:3000/api/avistamentos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dadosAvistamento)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Resposta do servidor:', data);
+                // loadAvistamentoList();
+            })
+            .catch(error => console.error("Erro:", error));
+        }
+    </script>
+</body>
+</html>

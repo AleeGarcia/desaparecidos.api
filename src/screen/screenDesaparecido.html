@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Desaparecido</title>
+    <style>
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>Formulário de Desaparecido</h2>
+    <form id="formAdicionarDesaparecido">
+        <label for="idDesaparecido">ID:</label>
+        <input type="text" id="idDesaparecido" name="idDesaparecido" placeholder="Digite o ID do desaparecido">
+
+        <label for="nomeDesaparecido">Nome:</label>
+        <input type="text" id="nomeDesaparecido" name="nomeDesaparecido" placeholder="Digite o nome do desaparecido">
+
+        <label for="idadeDesaparecido">Idade:</label>
+        <input type="text" id="idadeDesaparecido" name="idadeDesaparecido" placeholder="Digite a idade do desaparecido">
+
+        <label for="descricaoDesaparecido">Descrição:</label>
+        <textarea id="descricaoDesaparecido" name="descricaoDesaparecido" placeholder="Digite a descrição do desaparecido"></textarea>
+
+        <label for="fotoDesaparecido">Foto:</label>
+        <input type="text" id="fotoDesaparecido" name="fotoDesaparecido" placeholder="Insira o link da foto do desaparecido">
+
+        <input type="submit" value="Registrar Desaparecido">
+    </form>
+
+    <div id="listaDesaparecidos">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('formAdicionarDesaparecido').addEventListener('submit', function (event) {
+                event.preventDefault();
+                adicionarDesaparecido();
+            });
+        });
+
+        function adicionarDesaparecido() {
+            const id = document.getElementById('idDesaparecido').value;
+            const nome = document.getElementById('nomeDesaparecido').value;
+            const idade = document.getElementById('idadeDesaparecido').value;
+            const descricao = document.getElementById('descricaoDesaparecido').value;
+            const foto = document.getElementById('fotoDesaparecido').value;
+
+            const dadosDesaparecido = {
+                id: id,
+                nome: nome,
+                idade: idade,
+                descricao: descricao,
+                foto: foto
+            };
+
+            fetch('http://localhost:3000/api/desaparecidos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dadosDesaparecido)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Resposta do servidor:', data);
+               
+                // loadDesaparecidoList();
+            })
+            .catch(error => console.error("Erro:", error));
+        }
+    </script>
+</body>
+</html>

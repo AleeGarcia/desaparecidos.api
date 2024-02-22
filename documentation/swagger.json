@@ -1,0 +1,202 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "API de Relatórios de Desaparecimento e Avistamento",
+      "version": "1.0.0",
+      "description": "Uma API para relatar desaparecimentos e avistamentos, trocar mensagens e gerenciar usuários."
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000",
+        "description": "Servidor local"
+      }
+    ],
+    "paths": {
+      "/desaparecimentos": {
+        "get": {
+          "summary": "Obter lista de desaparecimentos",
+          "responses": {
+            "200": {
+              "description": "Lista de desaparecimentos retornada com sucesso"
+            }
+          }
+        },
+        "post": {
+          "summary": "Reportar um novo desaparecimento",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Desaparecimento"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Desaparecimento reportado com sucesso"
+            },
+            "400": {
+              "description": "Erro na requisição"
+            }
+          }
+        }
+      },
+      "/avistamentos": {
+        "get": {
+          "summary": "Obter lista de avistamentos",
+          "responses": {
+            "200": {
+              "description": "Lista de avistamentos retornada com sucesso"
+            }
+          }
+        },
+        "post": {
+          "summary": "Reportar um novo avistamento",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Avistamento"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Avistamento reportado com sucesso"
+            },
+            "400": {
+              "description": "Erro na requisição"
+            }
+          }
+        }
+      },
+      "/mensagens": {
+        "get": {
+          "summary": "Obter lista de mensagens",
+          "responses": {
+            "200": {
+              "description": "Lista de mensagens retornada com sucesso"
+            }
+          }
+        },
+        "post": {
+          "summary": "Enviar uma nova mensagem",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Mensagem"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Mensagem enviada com sucesso"
+            },
+            "400": {
+              "description": "Erro na requisição"
+            }
+          }
+        }
+      },
+      "/usuarios": {
+        "get": {
+          "summary": "Obter lista de usuários",
+          "responses": {
+            "200": {
+              "description": "Lista de usuários retornada com sucesso"
+            }
+          }
+        },
+        "post": {
+          "summary": "Criar um novo usuário",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Usuário criado com sucesso"
+            },
+            "400": {
+              "description": "Erro na requisição"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Desaparecimento": {
+          "type": "object",
+          "properties": {
+            "nome": {
+              "type": "string"
+            },
+            "local": {
+              "type": "string"
+            },
+            "descricao": {
+              "type": "string"
+            }
+          }
+        },
+        "Avistamento": {
+          "type": "object",
+          "properties": {
+            "desaparecimento_id": {
+              "type": "integer"
+            },
+            "local": {
+              "type": "string"
+            },
+            "detalhes": {
+              "type": "string"
+            }
+          }
+        },
+        "Mensagem": {
+          "type": "object",
+          "properties": {
+            "de": {
+              "type": "string"
+            },
+            "para": {
+              "type": "string"
+            },
+            "conteudo": {
+              "type": "string"
+            }
+          }
+        },
+        "Usuario": {
+          "type": "object",
+          "properties": {
+            "nome": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "senha": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+  

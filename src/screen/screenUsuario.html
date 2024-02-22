@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Usuário</title>
+    <style>
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="email"], input[type="tel"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>Formulário de Usuário</h2>
+    <form id="formAdicionarUsuario">
+        <label for="nomeUsuario">Nome:</label>
+        <input type="text" id="nomeUsuario" name="nomeUsuario" placeholder="Digite o nome do usuário" required>
+
+        <label for="enderecoUsuario">Endereço:</label>
+        <input type="text" id="enderecoUsuario" name="enderecoUsuario" placeholder="Digite o endereço do usuário" required>
+
+        <label for="emailUsuario">Email:</label>
+        <input type="email" id="emailUsuario" name="emailUsuario" placeholder="Digite o email do usuário" required>
+
+        <label for="telefoneUsuario">Telefone:</label>
+        <input type="tel" id="telefoneUsuario" name="telefoneUsuario" placeholder="Digite o telefone do usuário" required>
+
+        <input type="submit" value="Registrar Usuário">
+    </form>
+
+    <div id="listaUsuarios">
+        
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('formAdicionarUsuario').addEventListener('submit', function (event) {
+                event.preventDefault();
+                adicionarUsuario();
+            });
+        });
+
+        function adicionarUsuario() {
+            const nome = document.getElementById('nomeUsuario').value;
+            const endereco = document.getElementById('enderecoUsuario').value;
+            const email = document.getElementById('emailUsuario').value;
+            const telefone = document.getElementById('telefoneUsuario').value;
+
+           
+            const dadosUsuario = {
+                nome: nome,
+                endereco: endereco,
+                email: email,
+                telefone: telefone
+            };
+
+           
+            fetch('http://localhost:3000/api/usuarios', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dadosUsuario)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Resposta do servidor:', data);
+                
+                // loadUserList();
+            })
+            .catch(error => console.error("Erro:", error));
+        }
+    </script>
+</body>
+</html>

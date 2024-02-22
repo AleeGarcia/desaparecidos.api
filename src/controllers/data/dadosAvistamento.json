@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "sexo": "Masculino",
+      "localizacao": "Parque Nacional",
+      "data": "2024-02-17"
+    },
+    {
+      "id": 2,
+      "sexo": "Feminino",
+      "localizacao": "Floresta",
+      "data": "2024-02-16"
+    },
+    {
+      "id": 3,
+      "sexo": "Indefinido",
+      "localizacao": "Praia",
+      "data": "2024-02-15"
+    }
+  ]
+  

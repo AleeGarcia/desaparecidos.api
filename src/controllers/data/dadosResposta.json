@@ -1,0 +1,17 @@
+[
+  {
+      "id": 1,
+      "autor": "João",
+      "conteudo": "Olá, pessoal! Estou feliz em fazer parte deste fórum!"
+  },
+  {
+      "id": 2,
+      "autor": "Maria",
+      "conteudo": "Bom dia a todos! Espero que tenham um ótimo dia!"
+  },
+  {
+      "id": 3,
+      "autor": "Pedro",
+      "conteudo": "Alguém sabe de alguma notícia importante hoje?"
+  }
+]

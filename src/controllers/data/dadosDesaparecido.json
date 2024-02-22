@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "nome": "João Silva",
+        "idade": 30,
+        "descricao": "João Silva desapareceu na região central da cidade. Ele tem cabelos castanhos e olhos azuis.",
+        "foto": "joao_silva.jpg"
+    },
+    {
+        "id": 2,
+        "nome": "Maria Oliveira",
+        "idade": 25,
+        "descricao": "Maria Oliveira desapareceu perto do parque da cidade. Ela tem cabelos pretos e uma cicatriz na bochecha esquerda.",
+        "foto": "maria_oliveira.jpg"
+    },
+    {
+        "id": 3,
+        "nome": "Pedro Santos",
+        "idade": 40,
+        "descricao": "Pedro Santos foi visto pela última vez no bairro residencial. Ele tem uma tatuagem de uma âncora no antebraço direito.",
+        "foto": "pedro_santos.jpg"
+    }
+]

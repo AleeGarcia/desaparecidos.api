@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fórum de Mensagens</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .mensagem {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+
+        .mensagem p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Fórum de Mensagens</h1>
+
+        <div id="mensagens">
+            
+        </div>
+
+        <h2>Enviar Nova Mensagem</h2>
+        <form id="formEnviarMensagem">
+            <label for="autor">Autor:</label>
+            <input type="text" id="autor" name="autor"><br><br>
+            
+            <label for="conteudo">Conteúdo:</label><br>
+            <textarea id="conteudo" name="conteudo" rows="4" cols="50"></textarea><br><br>
+            
+            <button type="submit">Enviar Mensagem</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function (){
+            loadMensagens();
+            
+            document.getElementById('formEnviarMensagem').addEventListener('submit', function (event){
+                event.preventDefault();
+                enviarMensagem();
+            });
+        });
+
+        function enviarMensagem() {
+            const autor = document.getElementById('autor').value;
+            const conteudo = document.getElementById('conteudo').value;
+
+            fetch('http://localhost:3000/api/mensagens', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    autor: autor,
+                    conteudo: conteudo
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                loadMensagens();
+            })
+            .catch(error => console.error("Erro:", error));
+        }
+
+        function loadMensagens() {
+            fetch('http://localhost:3000/api/mensagens')
+                .then(response => response.json())
+                .then(data => displayMensagens(data))
+                .catch(error => console.error("Erro:", error));
+        }
+
+        function displayMensagens(data) {
+            const containerMensagens = document.getElementById('mensagens');
+            containerMensagens.innerHTML = '';
+
+            data.forEach(mensagem => {
+                const mensagemDiv = document.createElement('div');
+                mensagemDiv.classList.add('mensagem');
+                mensagemDiv.innerHTML = `
+                    <p><strong>Autor:</strong> ${mensagem.autor}</p>
+                    <p><strong>Mensagem:</strong> ${mensagem.conteudo}</p>
+                `;
+                containerMensagens.appendChild(mensagemDiv);
+            });
+        }
+    </script>
+</body>
+</html>
