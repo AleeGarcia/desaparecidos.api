@@ -55,10 +55,23 @@
             padding: 10px;
             margin-bottom: 10px;
             border-radius: 4px;
+            position: relative;
         }
 
         .mensagem p {
             margin: 0;
+        }
+
+        .mensagem img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        .acoes {
+            position: absolute;
+            top: 5px;
+            right: 5px;
         }
     </style>
 </head>
@@ -110,6 +123,8 @@
             .then(data => {
                 console.log(data);
                 loadMensagens();
+                document.getElementById('autor').value = '';
+                document.getElementById('conteudo').value = '';
             })
             .catch(error => console.error("Erro:", error));
         }
@@ -129,11 +144,51 @@
                 const mensagemDiv = document.createElement('div');
                 mensagemDiv.classList.add('mensagem');
                 mensagemDiv.innerHTML = `
+                    <div class="acoes">
+                        <button onclick="editarMensagem('${mensagem.id}', '${mensagem.conteudo}')">Editar</button>
+                        <button onclick="excluirMensagem('${mensagem.id}')">Excluir</button>
+                    </div>
                     <p><strong>Autor:</strong> ${mensagem.autor}</p>
                     <p><strong>Mensagem:</strong> ${mensagem.conteudo}</p>
+                    <img src="${mensagem.imagem}" alt="Imagem da mensagem">
                 `;
                 containerMensagens.appendChild(mensagemDiv);
             });
+        }
+
+        function editarMensagem(id, conteudo) {
+            const novoConteudo = prompt("Editar mensagem:", conteudo);
+            if (novoConteudo !== null) {
+                fetch(`http://localhost:3000/api/mensagens/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        conteudo: novoConteudo
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    loadMensagens();
+                })
+                .catch(error => console.error("Erro:", error));
+            }
+        }
+
+        function excluirMensagem(id) {
+            if (confirm("Tem certeza que deseja excluir esta mensagem?")) {
+                fetch(`http://localhost:3000/api/mensagens/${id}`, {
+                    method: 'DELETE',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    loadMensagens();
+                })
+                .catch(error => console.error("Erro:", error));
+            }
         }
     </script>
 </body>
